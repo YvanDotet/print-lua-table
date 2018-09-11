@@ -1,5 +1,5 @@
 function pprint( t ) 
-    local same={}
+    local same={} // pour éviter des répétitions
 
     local function _print(t,indent)
         if (same[tostring(t)]) then
