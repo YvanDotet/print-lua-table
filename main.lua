@@ -26,22 +26,25 @@ end
 --Exemple
 
 local t={1,{"abc",{}}}
-t[{}]=true
-t[function() end]=t
+t[{}]={}
+t[function() end]={[t]=t}
 
 pprint(t)
 
 --[[ output
 
-table: 0A9258F8 {
+table: 0B1349C0 {
   [1]>1
-  [2]>table: 0A9257B8 {
+  [2]>table: 0B134A38 {
         [1]>abc
-        [2]>table: 0A925A10 {
+        [2]>table: 0B134C40 {
             }
       }
-  [table: 0A9255D8]>true
-  [function: 0AFD3370]>*table: 0A9258F8
+  [table: 0B134AB0]>table: 0B134C18 {
+                    }
+  [function: 0AAD0168]>table: 0B1348D0 {
+                         [table: 0B1349C0]>*table: 0B1349C0
+                       }
 }
 
 ]]--
