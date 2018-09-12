@@ -31,7 +31,8 @@ t[function() end]=t
 
 pprint(t)
 
---[[
+--[[ output
+
 table: 0A9258F8 {
   [1]>1
   [2]>table: 0A9257B8 {
@@ -42,4 +43,5 @@ table: 0A9258F8 {
   [table: 0A9255D8]>true
   [function: 0AFD3370]>*table: 0A9258F8
 }
+
 ]]--
