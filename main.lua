@@ -1,27 +1,39 @@
-function pprint( t ) 
-  local same={} -- éviter les répétitions
+local function _print(tab,indent,same)
+  local sg=tostring(tab).." {\n"
 
-  local function _print(t,indent)
-    if type(t)~="table" then return tostring( t ) end
-    if same[tostring(t)] then return "*"..tostring(t) end
+  for key,value in pairs(tab) do
+    local line=indent.."  ["..tostring(key).."]>"
 
-    same[tostring(t)]=true
-    
-    local sg=tostring(t).." {".."\n"
-  
-    for pos,val in pairs(t) do
-      local len=string.len( indent.."["..tostring(pos).."]>".."  " )
-      local toAdd = string.rep( " ", len )
-      
-      sg=sg..indent.."["..tostring(pos).."]>".._print(val,toAdd).."\n"
+    if type(value)=="table" then
+      if same[tostring(value)] then
+        line = line.."*"..tostring(value)
+      else
+        same[tostring(value)]=true
+        local len=string.len(line)
+        local newIndent=string.rep(" ",len)
+        line = line.._print(value,newIndent,same)
+      end
+    else
+      line = line..tostring(value)
     end
 
-    return sg..string.sub(indent,0,-3).."}"
+    line=line.."\n"
+    sg=sg..line
   end
 
-  print( _print(t,"  ") )
+  sg=sg..indent.."}"
+
+  return sg
 end
-}
+
+local function pprint(tab)
+  local same={-- éviter les répétitions
+    [tostring(tab)]=true
+  }
+
+  local _str=_print(tab,"",same)
+  print(_str)
+end
 
 --Exemple
 
